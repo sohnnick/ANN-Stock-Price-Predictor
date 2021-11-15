@@ -1,0 +1,12 @@
+#container_graph {
+	width: 800px;
+	height: 600px;
+}
+
+h4 {
+	color: blue;
+}
+
+.debug {
+	color: gray;
+}

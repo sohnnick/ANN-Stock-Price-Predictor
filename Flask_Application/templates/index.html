@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+<title>NLP Stock Price Predictor</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+
+{% endblock %}
+
+{% block body %}
+
+<div class="row-md">
+	<div class="col-md-8 center-div center-text">
+
+		<h1>NLP Stock Price Predictor</h1>
+		<img src="../static/media/wolfofwallst.gif">
+		<h3>The Date Today is: {%print(date)%}</h3>
+
+	</div>
+</div>
+
+<br>
+
+<div class="row-md">
+	<div class="col-md-8 center-div">
+
+		<form action="{{ url_for('predict')}}" method="POST">
+
+			<p><strong>Please pick a stock ticker:</strong></p>
+
+			<select name="stock-tickers">
+				<option value="MSFT">MSFT</option>
+				<option value="AAPL">AAPL</option>
+				<option value="FB">FB</option>
+				<option value="GOOGL">GOOGL</option>
+				<option value="TSLA">TSLA</option>
+			</select>
+
+			<br>
+			<br>
+
+			<label for="myfile">Upload Text File:</label>
+			<input type="file" id="myfile" name="myfile">
+
+			<br>
+			<br>
+
+			<input type="submit" name="send_ticker">
+		</form>
+
+	</div>
+</div>
+
+{% endblock %}

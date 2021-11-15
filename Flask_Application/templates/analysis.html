@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+<title>NLP Stock Price Predictor</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/analysis.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="row row-lg">
+
+	<div class="col col-lg-3">
+		<h4>{%print(companyname)%}</h4>
+		<h5>({%print(ticker)%})</h5>
+	</div>
+
+	<div class="col col-lg-3">
+		<p><strong>CEO:</strong> {%print(ceo)%}</p>
+		<p><strong>HQ Country:</strong> {%print(address)%}</p>
+		<p><strong>Exchange:</strong> {%print(exchange)%}</p>
+	</div>
+
+	<div class="col col-lg-3">
+		<p class="debug"><strong>Application Metadata</strong></h3>
+		<p class="debug"><strong>Yahoo Finance API Used:</strong> {%print(yahoo)%}</p>
+		<p class="debug"><strong>Update Time:</strong> {%print(update_time)%}</p>
+	</div>
+
+</div>
+
+<br>
+<hr>
+<br>
+
+<div class="row row-lg">
+	<div class="col">
+		<h4>Prediction</h4>
+	</div>
+</div>
+
+<div id="historical" style="display: none;"> {%print(historical)%} </div>
+<div id="analysis" style="display: none;"> {%print(analysis)%} </div>
+<div id="news" style="display: none;"> {%print(news)%} </div>
+
+<div class="row row-lg">
+	<div class="col">
+		<div id="container_graph"></div>
+	</div>
+</div>
+
+<br>
+<hr>
+<br>
+
+<div class="row row-lg">
+	<div class="col">
+		<h4>Company Financials</h4>
+	</div>
+</div>
+
+<div class="row row-lg">
+	<div class="col">
+		<strong style="color:red;">
+			<h8>Most Recent Attributes</h8>
+		</strong>
+	</div>
+</div>
+
+<div class="row row-lg" id="financials">
+	<div class="col col-lg-3">
+		<p><strong>Open:</strong> {%print(day_open)%}</p>
+		<p><strong>High:</strong> {%print(day_high)%}</p>
+		<p><strong>Low:</strong> {%print(day_low)%}</p>
+	</div>
+
+	<div class="col col-lg-3">
+		<p><strong>Mkt Cap:</strong> {%print(market_cap)%}B</p>
+		<p><strong>P/E:</strong> {%print(pe_ratio)%}</p>
+		<p><strong>Div Yield:</strong> {%print(div_yield)%}</p>
+	</div>
+
+	<div class="col col-lg-3">
+		<p><strong>52w High:</strong> {%print(high_52w)%}</p>
+		<p><strong>52w Low:</strong> {%print(low_52w)%}</p>
+	</div>
+</div>
+
+<br>
+
+<div class="row row-lg">
+	<div class="col">
+		<strong style="color:red;">
+			<h8>Most Recent 10-Q or 10-K:</h8>
+			<h10>{%print(fiscal_period)%}, {%print(fiscal_year)%}</h10>
+		</strong>
+	</div>
+</div>
+
+<div class="row row-lg" id="financials">
+	<div class="col col-lg-3">
+		<p><strong>Revenue:</strong> {%print(revenue)%}B</p>
+		<p><strong>Gross Profit:</strong> {%print(gross_profit)%}B</p>
+		<p><strong>EPS:</strong> {%print(eps)%}</p>
+	</div>
+</div>
+
+<script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"></script>
+<script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+
+{% endblock %}
