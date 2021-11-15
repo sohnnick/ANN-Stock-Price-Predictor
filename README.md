@@ -12,8 +12,9 @@ $ flask run
 
 # Dependencies (Downgraded for Compatibility w/ Flask)
 
-Keras Version 2.2.5__
-Tensorflow Version 1.14__
+Keras Version 2.2.5
+<br>
+Tensorflow Version 1.14
 
 # APIs
 
