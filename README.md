@@ -24,8 +24,5 @@ Yahoo Finance, Twitter, Polygon.io, Firebase
 Flask, Python, Javascript, HTML&CSS
 
 # How it Looks
-<img src="Images/home.png" alt="home" width="400" />
-<img src="Images/results.png" alt="results" width="400" />
-
-![Homepage](Images/home.png) { width: 400px; }
-![Results](Images/results.png) { width: 400px; }
+<img src="Images/home.png" alt="home" width="500" />
+<img src="Images/results.png" alt="results" width="500" />
