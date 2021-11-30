@@ -12,6 +12,9 @@ from sklearn.preprocessing import PolynomialFeatures, MinMaxScaler
 from keras.models import Sequential
 from keras.layers import Dense, LSTM
 
+from train_nn import *
+from next_seven_days import *
+
 def predictStockPrice(stock_dict):
 	# create dataframe
 	df_stock = pd.DataFrame({
@@ -25,8 +28,6 @@ def predictStockPrice(stock_dict):
 	df_stock['Day'] = [x.split('-')[2] for x in list(df_stock['Date'])]
 
 	df_nn = df_stock.copy()
-	# df_dates = df_nn[['Year', 'Month', 'Day']]
-	# df_nn['Datetime'] = pd.to_datetime(df_dates)
 
 	df_close = df_nn['Stock Close']
 	np_close = df_close.values
@@ -50,16 +51,9 @@ def predictStockPrice(stock_dict):
 	x_train, y_train = np.array(x_train), np.array(y_train)
 	x_train = np.reshape(x_train, (x_train.shape[0],x_train.shape[1],1))
 
-	model = Sequential()
-	model.add(LSTM(units=50, return_sequences=True,input_shape=(x_train.shape[1],1)))
-	model.add(LSTM(units=50, return_sequences=False))
-	model.add(Dense(units=25))
-	model.add(Dense(units=1))
+	model = trainNN(x_train, y_train)
 
-	model.compile(optimizer='adam', loss='mean_squared_error')
-
-	model.fit(x_train, y_train, batch_size=1, epochs=1)
-
+	# Test Data predictions
 	test_data = scaled_data[thresh - 60: , : ]
 
 	x_test = []
@@ -71,9 +65,11 @@ def predictStockPrice(stock_dict):
 
 	x_test = np.reshape(x_test, (x_test.shape[0],x_test.shape[1],1))
 
+	# get predictions and rmse
 	predictions = model.predict(x_test) 
 	predictions = scaler.inverse_transform(predictions)
-
 	rmse = np.sqrt(np.mean(((predictions - y_test)**2)))
 
-	return predictions, rmse
+	seven_days_ahead = next_seven_days(scaled_data, model, scaler)
+
+	return predictions, seven_days_ahead, rmse

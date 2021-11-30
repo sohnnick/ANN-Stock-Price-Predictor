@@ -55,9 +55,10 @@ def predict():
 			stock_dict = getStockInfo(ticker)
 			update_time = date_today
 
-		pred_results, rmse = predictStockPrice(stock_dict)
+		pred_results, seven_days_ahead, rmse = predictStockPrice(stock_dict)
 
-		send_all = sendDict(pred_results, stock_dict, ticker, yahoo_flag, update_time)
+		send_all = sendDict(pred_results, stock_dict, 
+			ticker, yahoo_flag, update_time, seven_days_ahead, rmse)
 
 		# direct to new page
 		return render_template('analysis.html', **send_all)

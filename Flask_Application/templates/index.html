@@ -12,9 +12,11 @@
 <div class="row-md">
 	<div class="col-md-8 center-div center-text">
 
-		<h1>NLP Stock Price Predictor</h1>
+		<h1><strong>RNN Stock Price Predictor</strong></h1>
 		<img src="../static/media/wolfofwallst.gif">
-		<h3>The Date Today is: {%print(date)%}</h3>
+		<br>
+		<br>
+		<h3><span style="color: #6F6F6F;">The Date Today is:</span> <strong>{%print(date)%}</strong></h3>
 
 	</div>
 </div>
@@ -24,7 +26,7 @@
 <div class="row-md">
 	<div class="col-md-8 center-div">
 
-		<form action="{{ url_for('predict')}}" method="POST">
+		<form action="{{ url_for('predict')}}" method="POST" id="input-form">
 
 			<p><strong>Please pick a stock ticker:</strong></p>
 
@@ -34,16 +36,12 @@
 				<option value="FB">FB</option>
 				<option value="GOOGL">GOOGL</option>
 				<option value="TSLA">TSLA</option>
+				<option value="PLTR">PLTR</option>
+				<option value="DKNG">DKNG</option>
+				<option value="TWTR">TWTR</option>
+				<option value="NKE">NKE</option>
+				<option value="KO">KO</option>
 			</select>
-
-			<br>
-			<br>
-
-			<label for="myfile">Upload Text File:</label>
-			<input type="file" id="myfile" name="myfile">
-
-			<br>
-			<br>
 
 			<input type="submit" name="send_ticker">
 		</form>

@@ -1,8 +1,9 @@
 import pandas as pd
 import json
 import numpy as np
+from datetime import datetime, timezone, date, timedelta
 
-def sendDict(pred_results, stock_dict, ticker, yahoo_flag, update_time):
+def sendDict(pred_results, stock_dict, ticker, yahoo_flag, update_time, next_seven_days, rmse):
 	# prep historical graph
 	historical_date = stock_dict['Stock Dates']
 	historical_price = stock_dict['Stock Close']
@@ -23,37 +24,69 @@ def sendDict(pred_results, stock_dict, ticker, yahoo_flag, update_time):
 	send_historical_json = json.dumps(send_historical_dict)
 	send_analysis_json = json.dumps(send_analysis_dict)
 
-	print(stock_dict.keys())
+	# print(stock_dict.keys())
 
 	# descriptive information
-	send_companyname = stock_dict['Stock Info']['name']
-	send_exchange = stock_dict['Stock Info']['exchange']
-	send_ceo = stock_dict['Stock Info']['ceo']
-	send_address = stock_dict['Stock Info']['hq_country']
+	# if there exists an error w/ Polygon.io
+	if 'error' in stock_dict['Stock Info'].keys():
+		send_companyname = stock_dict['YF Info']['shortName']
+		send_exchange = stock_dict['YF Info']['exchange']
+		send_ceo = 'N/A (Unavailable from Polygon.io)'
+		send_address = stock_dict['YF Info']['country']
 
-	# financial information
+	else:
+		send_companyname = stock_dict['Stock Info']['name']
+		send_exchange = stock_dict['Stock Info']['exchange']
+		send_ceo = stock_dict['Stock Info']['ceo']
+		send_address = stock_dict['Stock Info']['hq_country']
+
+	# financial daily information
 	market_cap = np.round(stock_dict['YF Info']['marketCap']/1000000000, 2)
-	pe_ratio = stock_dict['YF Info']['trailingPE']
+	if 'trailingPE' in stock_dict['YF Info'].keys():
+		pe_ratio = stock_dict['YF Info']['trailingPE']
+	else:
+		pe_ratio = 'N/A'
 	sector = stock_dict['YF Info']['sector']
 	high_52w = stock_dict['YF Info']['fiftyTwoWeekHigh']
 	low_52w = stock_dict['YF Info']['fiftyTwoWeekLow']
 	day_open = stock_dict['YF Info']['open']
 	day_low = stock_dict['YF Info']['dayLow']
 	day_high = stock_dict['YF Info']['dayHigh']
-	if 'trailingAnnualDividendYield' not in stock_dict['YF Info'].keys():
-		div_yield = 0
-	else:
-		div_yield = stock_dict['YF Info']['trailingAnnualDividendYield']*100
+	
+	div_yield = 0
+	if 'trailingAnnualDividendYield' in stock_dict['YF Info'].keys():
+		try:
+			div_yield = int(stock_dict['YF Info']['trailingAnnualDividendYield'])*100
+		except TypeError:
+			pass
 
-	news = stock_dict["YF News"]
+	news = json.dumps(stock_dict["YF News"])
 
-
+	# 10-Q statements
 	fiscal_period = stock_dict['Stock Financials']['results'][0]['fiscal_period']
 	fiscal_year = stock_dict['Stock Financials']['results'][0]['fiscal_year']
 	revenue = np.round(stock_dict['Stock Financials']['results'][0]['financials']['income_statement']['revenues']['value']/1000000000, 2)
 	gross_profit = np.round(stock_dict['Stock Financials']['results'][0]['financials']['income_statement']['gross_profit']['value']
 		/1000000000, 2)
 	eps = stock_dict['Stock Financials']['results'][0]['financials']['income_statement']['basic_earnings_per_share']['value']
+
+	# prepare the next seven days document
+	seven_dates = []
+	datetime_today = datetime.now() + timedelta(days=1)
+	count = 0
+	while(count < 7):
+	    if datetime_today.weekday() not in [5, 6]:
+	        date_str = (str(datetime_today.year) + '-' + 
+	                    str(datetime_today.month) + '-' + str(datetime_today.day))
+	        seven_dates.append(date_str)
+	        count = count + 1
+	    datetime_today = datetime_today + timedelta(days=1)
+
+	next_seven_forecast_dict = {}
+	for i in range(0, 7):
+		next_seven_forecast_dict[seven_dates[i]] = str(next_seven_days[i])
+
+	send_next_seven_forecast = json.dumps(next_seven_forecast_dict)
 
 	send_all = {
 		'ticker': ticker, 
@@ -79,8 +112,9 @@ def sendDict(pred_results, stock_dict, ticker, yahoo_flag, update_time):
 		'fiscal_year': fiscal_year,
 		'revenue': revenue,
 		'gross_profit': gross_profit,
-		'eps': eps
-
+		'eps': eps,
+		'rmse': rmse,
+		'next_seven_forecast': send_next_seven_forecast
 	}
 
 	return send_all

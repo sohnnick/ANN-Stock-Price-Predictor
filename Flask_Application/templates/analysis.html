@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block body %}
+<!-- Header -->
 <div class="row row-lg">
 
 	<div class="col col-lg-3">
@@ -29,82 +30,138 @@
 </div>
 
 <br>
-<hr>
+<hr style="color: #00548F;">
 <br>
 
+<!-- Predictions -->
 <div class="row row-lg">
 	<div class="col">
 		<h4>Prediction</h4>
 	</div>
 </div>
 
+<br>
+
 <div id="historical" style="display: none;"> {%print(historical)%} </div>
 <div id="analysis" style="display: none;"> {%print(analysis)%} </div>
 <div id="news" style="display: none;"> {%print(news)%} </div>
+<div id="next_seven_forecast" style="display: none;"> {%print(next_seven_forecast)%} </div>
 
 <div class="row row-lg">
-	<div class="col">
+	<div class="col col-lg-5">
+		<div id="forecast_graph"></div>
+	</div>
+	<div class="col col-lg-7">
 		<div id="container_graph"></div>
 	</div>
 </div>
 
 <br>
-<hr>
+
+<div class="row row-lg">
+	<div class="col">
+		<p><strong>Validation RMSE:</strong> {%print(rmse)%}</p>
+		<p>- Trained on 70% of the historical stock prices.</p>
+		<p>- Validated on 30% of the historical stock prices.</p>
+		<a>- Forecasting 7 days into the future.</a>
+	</div>
+</div>
+
+<br>
+<hr style="color: #00548F;">
 <br>
 
+<!-- Company Financials -->
 <div class="row row-lg">
 	<div class="col">
 		<h4>Company Financials</h4>
 	</div>
 </div>
 
+<br>
+
 <div class="row row-lg">
-	<div class="col">
-		<strong style="color:red;">
-			<h8>Most Recent Attributes</h8>
-		</strong>
+	<div class="col col-lg-6" style="border: 1px black solid; padding-top: 10px; 
+	margin-right: 5px;">
+		<div class="row row-lg">
+			<div class="col col-lg-6">
+				<h6><u><strong style="color:gray;">Real-Time Financials</strong></u></h6>
+			</div>
+		</div>
+		<div class="row row-lg">
+			<div class="col">
+				<p><strong>Open:</strong> {%print(day_open)%}</p>
+				<p><strong>High:</strong> {%print(day_high)%}</p>
+				<p><strong>Low:</strong> {%print(day_low)%}</p>
+			</div>
+
+			<div class="col">
+				<p><strong>Mkt Cap:</strong> {%print(market_cap)%}B</p>
+				<p><strong>P/E:</strong> {%print(pe_ratio)%}</p>
+				<p><strong>Div Yield:</strong> {%print(div_yield)%}</p>
+			</div>
+
+			<div class="col">
+				<p><strong>52w High:</strong> {%print(high_52w)%}</p>
+				<p><strong>52w Low:</strong> {%print(low_52w)%}</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="col col-lg-3" style="border: 1px black solid; padding-top: 10px;
+	margin-left: 5px;">
+		<div class="row row-lg">
+			<div class="col col-lg-6">
+				<h6><u><strong style="color:gray;">10-Q/K:</strong> {%print(fiscal_period)%}, {%print(fiscal_year)%}</u></h6>
+			</div>
+		</div>
+		<div class="row row-lg">
+			<div class="col">
+				<p><strong>Revenue:</strong> {%print(revenue)%}B</p>
+				<p><strong>Gross Profit:</strong> {%print(gross_profit)%}B</p>
+				<p><strong>EPS:</strong> {%print(eps)%}</p>
+			</div>
+		</div>
 	</div>
 </div>
 
-<div class="row row-lg" id="financials">
-	<div class="col col-lg-3">
-		<p><strong>Open:</strong> {%print(day_open)%}</p>
-		<p><strong>High:</strong> {%print(day_high)%}</p>
-		<p><strong>Low:</strong> {%print(day_low)%}</p>
-	</div>
+<br>
+<hr style="color: #00548F;">
+<br>
 
-	<div class="col col-lg-3">
-		<p><strong>Mkt Cap:</strong> {%print(market_cap)%}B</p>
-		<p><strong>P/E:</strong> {%print(pe_ratio)%}</p>
-		<p><strong>Div Yield:</strong> {%print(div_yield)%}</p>
-	</div>
-
-	<div class="col col-lg-3">
-		<p><strong>52w High:</strong> {%print(high_52w)%}</p>
-		<p><strong>52w Low:</strong> {%print(low_52w)%}</p>
+<!-- Company News -->
+<div class="row row-lg">
+	<div class="col">
+		<h4>Company News</h4>
 	</div>
 </div>
 
 <br>
 
+<div class="row row-lg" id="news-row">
+	<table id="news-table" style="width: 80%;">
+		<tr id="first-row">
+			<th>Publisher</th>
+			<th>Title</th>
+			<th>Link</th>
+		</tr>
+	</table>
+</div>
+
+<br>
+<hr style="color: #00548F;">
+<br>
+
+<!-- Dataset -->
 <div class="row row-lg">
 	<div class="col">
-		<strong style="color:red;">
-			<h8>Most Recent 10-Q or 10-K:</h8>
-			<h10>{%print(fiscal_period)%}, {%print(fiscal_year)%}</h10>
-		</strong>
+		<h4>Query Data</h4>
 	</div>
 </div>
 
-<div class="row row-lg" id="financials">
-	<div class="col col-lg-3">
-		<p><strong>Revenue:</strong> {%print(revenue)%}B</p>
-		<p><strong>Gross Profit:</strong> {%print(gross_profit)%}B</p>
-		<p><strong>EPS:</strong> {%print(eps)%}</p>
-	</div>
-</div>
 
 <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"></script>
 <script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+<script src="{{ url_for('static', filename='js/news.js') }}"></script>
 
 {% endblock %}
