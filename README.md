@@ -1,6 +1,6 @@
 # RNN-Stock-Price-Predictor
 
-The stock market is more volatile than ever. In an attempt to capture and analyze these movements, I have developed an RNN Stock Price Predictor. This Flask application allows users to select a stock and return visualizations based on historical closing prices and future predictions for the next seven days. The model itself is trained on a 70-30 train-test split. There will also be an NLP component which allows users to upload or extract text data from Twitter's API as supporting attributes for the model (work in progress).
+The stock market is more volatile than ever. In an attempt to capture and analyze these movements, I have developed an LSTM RNN Stock Price Predictor. This Flask application allows users to select a stock and return visualizations based on historical closing prices and future predictions for the next seven days. The model itself is trained on a 70-30 train-test split. There will also be an NLP component which allows users to upload or extract text data from Twitter's API as supporting attributes for the model (work in progress).
 
 # How to Start
 ```
@@ -20,10 +20,23 @@ Tensorflow Version 1.14
 
 Yahoo Finance, Twitter, Polygon.io, Firebase
 
+# Web Development Libraries
+
+AnyChart, Datatable, Bootstrap
+
 # Languages and Technologies
 
 Flask, Python, Javascript, HTML&CSS
 
 # How it Looks
 <img src="Images/home.png" alt="home" width="500" />
-<img src="Images/results.png" alt="results" width="500" />
+<img src="Images/results1.png" alt="results" width="500" />
+<img src="Images/results2.png" alt="results" width="500" />
+<img src="Images/results3.png" alt="results" width="500" />
+<img src="Images/results4.png" alt="results" width="500" />
+
+# Architecture
+<img src="Images/architecture.png" alt="home" width="500" />
+
+# ML
+<img src="Images/model.png" alt="home" width="500" />

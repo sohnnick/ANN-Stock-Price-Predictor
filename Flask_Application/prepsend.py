@@ -88,6 +88,21 @@ def sendDict(pred_results, stock_dict, ticker, yahoo_flag, update_time, next_sev
 
 	send_next_seven_forecast = json.dumps(next_seven_forecast_dict)
 
+	send_historical_table = []
+	# prepare to send historical table
+	for i in range(0, len(stock_dict["Stock Dates"])):
+		row_temp = []
+		row_temp.append(stock_dict["Stock Dates"][i])
+		row_temp.append(stock_dict["Stock Low"][i])
+		row_temp.append(stock_dict["Stock High"][i])
+		row_temp.append(stock_dict["Stock Open"][i])
+		row_temp.append(stock_dict["Stock Close"][i])
+		row_temp.append(stock_dict["Stock Volume"][i])
+		send_historical_table.append(tuple(row_temp))
+	send_historical_table = tuple(send_historical_table)
+
+	send_historical_height = len(stock_dict["Stock Dates"])
+
 	send_all = {
 		'ticker': ticker, 
 		'yahoo': yahoo_flag,
@@ -114,7 +129,9 @@ def sendDict(pred_results, stock_dict, ticker, yahoo_flag, update_time, next_sev
 		'gross_profit': gross_profit,
 		'eps': eps,
 		'rmse': rmse,
-		'next_seven_forecast': send_next_seven_forecast
+		'next_seven_forecast': send_next_seven_forecast,
+		'historical_table': send_historical_table,
+		'historical_height': send_historical_height
 	}
 
 	return send_all

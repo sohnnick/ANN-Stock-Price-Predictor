@@ -4,7 +4,7 @@ var results_seven = JSON.parse(document.getElementById('next_seven_forecast').in
 
 document.getElementById('historical').innerHTML = '';
 document.getElementById('analysis').innerHTML = '';
-document.getElementById('next_seven_forecast').innerHTML = '';
+// document.getElementById('next_seven_forecast').innerHTML = '';
 
 // create a chart
 chart = anychart.line();

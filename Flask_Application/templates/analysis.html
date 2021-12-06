@@ -4,6 +4,7 @@
 
 <title>NLP Stock Price Predictor</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis.css') }}">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 {% endblock %}
 
 {% block body %}
@@ -30,7 +31,7 @@
 </div>
 
 <br>
-<hr style="color: #00548F;">
+<hr>
 <br>
 
 <!-- Predictions -->
@@ -68,7 +69,7 @@
 </div>
 
 <br>
-<hr style="color: #00548F;">
+<hr>
 <br>
 
 <!-- Company Financials -->
@@ -126,7 +127,7 @@
 </div>
 
 <br>
-<hr style="color: #00548F;">
+<hr>
 <br>
 
 <!-- Company News -->
@@ -149,19 +150,93 @@
 </div>
 
 <br>
-<hr style="color: #00548F;">
+<hr>
 <br>
 
 <!-- Dataset -->
 <div class="row row-lg">
 	<div class="col">
-		<h4>Query Data</h4>
+		<h4>The Dataset</h4>
 	</div>
 </div>
 
+<br>
 
+<div class="row row-lg" id="stock-row">
+	<div class="col">
+		<h6><strong>Input</strong></h6>
+		<table id="hist-table" style="width: 80%;">
+			<thead>
+				<tr id="first-row">
+					<th>Stock Dates</th>
+					<th>Stock Low</th>
+					<th>Stock High</th>
+					<th>Stock Open</th>
+					<th>Stock Close</th>
+					<th>Stock Volume</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for row in historical_table %}
+				<tr>
+					{% for cell in row %}
+					<td>{{ cell }}</td>
+					{% endfor %}
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="col">
+		<h6><strong>Output</strong></h6>
+		<table id="output-table" style="width: 80%;">
+			<thead>
+				<tr id="first-row">
+					<th>Date</th>
+					<th>Prediction</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</div>
+
+<br>
+<hr>
+<br>
+
+<!-- Dataset -->
+<div class="row row-lg">
+	<div class="col">
+		<h4>Metadata</h4>
+	</div>
+</div>
+
+<br>
+
+<div class="row row-lg">
+	<div class="col">
+		<h6><strong><u>Variable Description</u></strong></h6>
+		<p><strong>Date:</strong> Date of Stock Movement</p>
+		<p><strong>Stock Low:</strong> Daily Low Price</p>
+		<p><strong>Stock High:</strong> Daily High Price</p>
+		<p><strong>Stock Open:</strong> Daily Open Price</p>
+		<p><strong>Stock Close:</strong> Daily Closing Price</p>
+		<p><strong>Stock Volume:</strong> Daily Volume of Stock Orders</p>
+	</div>
+	<div class="col">
+		<h6><strong><u>Input Shape</strong></u></h6>
+		<p>6x{%print(historical_height)%}</p>
+		<br>
+		<h6><strong><u>Output Shape</u></strong></h6>
+		<p>2x7</p>
+	</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"></script>
 <script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
 <script src="{{ url_for('static', filename='js/news.js') }}"></script>
+<script src="{{ url_for('static', filename='js/table.js') }}"></script>
 
 {% endblock %}
