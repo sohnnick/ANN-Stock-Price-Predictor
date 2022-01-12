@@ -18,7 +18,7 @@ Tensorflow Version 1.14
 
 # APIs
 
-Yahoo Finance, Twitter, Polygon.io, Firebase
+Yahoo Finance, Twitter, Polygon.io, Firebase, Flair
 
 # Web Development Libraries
 
