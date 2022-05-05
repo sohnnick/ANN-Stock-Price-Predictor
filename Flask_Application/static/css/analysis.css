@@ -3,7 +3,12 @@
 	height: 400px;
 }
 
-#forecast_graph {
+#container_graph_2 {
+	width: 90%;
+	height: 400px;
+}
+
+#container_graph_3{
 	width: 90%;
 	height: 400px;
 }
@@ -38,8 +43,20 @@ h4 {
 	padding: 4px;
 }
 
+body {
+	padding: 7%;
+}
 
-/*#stock-row table, th, td {
+#logo_img {
+	height: 80px;
+}
+
+.header-col {
+	width: 20%;
+	padding: 0px;
+}
+
+#stock-row table, th, td {
   border: 1px solid gray;
 }
 
@@ -55,4 +72,12 @@ h4 {
 #stock-row td {
 	font-weight: lighter;
 	padding: 4px;
-}*/
+}
+
+#fin-10Q-col {
+	width: 400px;
+}
+
+#tweet-score h6{
+	color: rgb(16, 166, 216);
+}
