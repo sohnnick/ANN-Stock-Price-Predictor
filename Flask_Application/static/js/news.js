@@ -1,29 +1,28 @@
-function populateNews(news_json) {
-	var parent_row = document.getElementById('news-table');
-	
-	console.log(news_json)
+console.log(document.getElementById('news').innerHTML);
 
-	for (let i = 0; i < news_json['title'].length; i++) {
-		var tr = document.createElement('tr');
-		var td1 = document.createElement('td');
-		var td2 = document.createElement('td');
-		var td3 = document.createElement('td');
-		var a = document.createElement('a');
+var news_json = JSON.parse(document.getElementById('news').innerHTML);
 
-		td1.innerHTML = news_json['publisher'][i];
-		console.log(td1);
+var parent_row = document.getElementById('news-table');
 
-		a.innerHTML = news_json['title'][i];
-		a.href = news_json['link'][i];
-		a.target = "_blank";
-		td2.appendChild(a);
+for (const object of Object.entries(news_json)) {
+  	var tr = document.createElement('tr');
+  	var td1 = document.createElement('td');
+  	var td2 = document.createElement('td');
+  	var td3 = document.createElement('td');
+  	var a = document.createElement('a');
 
-		td3.innerHTML = news_json['providerPublishTime'][i];
+	td1.innerHTML = object[1]['publisher'];
+	console.log(td1)
+	td2.innerHTML = object[1]['title'];
 
-		tr.appendChild(td1)
-		tr.appendChild(td2)
-		tr.appendChild(td3)
+	a.innerHTML = "Link";
+	a.href = object[1]['link'];
+	a.target = "_blank";
+	td3.appendChild(a)
 
-		parent_row.appendChild(tr);
-	};
-}
+	tr.appendChild(td1)
+	tr.appendChild(td2)
+	tr.appendChild(td3)
+
+	parent_row.appendChild(tr);
+};
