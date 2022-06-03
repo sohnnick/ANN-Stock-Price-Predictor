@@ -29,12 +29,7 @@ AnyChart, Datatable, Bootstrap
 Flask, Python, Javascript, HTML&CSS
 
 ### How it Looks
-<img src="Images/home.png" alt="home" width="500" />
-*The "RMSE" is actually "SSE"
-<img src="Images/results1.png" alt="results" width="500" />
-<img src="Images/results2.png" alt="results" width="500" />
-<img src="Images/results3.png" alt="results" width="500" />
-<img src="Images/results4.png" alt="results" width="500" />
+<img src="Images/site.gif" alt="home" width="500" />
 
 ### Architecture
 <img src="Images/architecture.png" alt="home" width="500" />

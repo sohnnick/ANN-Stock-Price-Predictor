@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import xgboost
-from xgboost import XGBRegressor
+# import xgboost
+# from xgboost import XGBRegressor
 import sklearn
 from sklearn.linear_model import LinearRegression
 from statsmodels.tsa.arima.model import ARIMA
